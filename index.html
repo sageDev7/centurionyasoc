@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Martín Centurión & Asociados | Estudio Jurídico en Concordia</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --black:#000000;
+  --dark:#1A1A1A;
+  --gray:#4A4A4A;
+  --light-gray:#F5F5F5;
+  --white:#FFFFFF;
+}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;color:var(--dark);overflow-x:hidden}
+a{text-decoration:none}
+
+/* HEADER */
+.header{position:fixed;top:0;left:0;width:100%;background:transparent;z-index:1000;transition:all .3s}
+.header.scrolled{background:var(--black);box-shadow:0 2px 10px rgba(0,0,0,.3)}
+.header-container{max-width:1200px;margin:0 auto;padding:1.2rem 2rem;display:flex;align-items:center;justify-content:space-between}
+.logo{display:flex;align-items:center}
+.logo img{height:50px;width:auto}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{color:var(--white);text-decoration:none;font-size:.9rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;transition:color .3s}
+.nav-links a:hover{color:var(--gray)}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer}
+.hamburger span{width:25px;height:3px;background:var(--white);transition:.3s}
+.hamburger.active span:nth-child(1){transform:rotate(45deg) translate(8px,8px)}
+.hamburger.active span:nth-child(2){opacity:0}
+.hamburger.active span:nth-child(3){transform:rotate(-45deg) translate(7px,-7px)}
+.mobile-nav{position:fixed;top:0;right:-100%;width:280px;height:100vh;background:var(--dark);padding:5rem 2rem;transition:.3s;z-index:999}
+.mobile-nav.open{right:0}
+.mobile-nav ul{list-style:none;display:flex;flex-direction:column;gap:1.5rem}
+.mobile-nav a{color:var(--white);text-decoration:none;font-size:1.1rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;color:var(--white);padding:120px 2rem 80px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:0;left:0;width:100%;height:100%;background:url('https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=1920&q=80') center/cover no-repeat;filter:grayscale(100%);z-index:0}
+.hero::after{content:'';position:absolute;top:0;left:0;width:100%;height:100%;background:var(--black);mix-blend-mode:multiply;opacity:.8;z-index:1}
+.hero-content{max-width:900px;margin:0 auto;position:relative;z-index:2}
+.hero-logo{margin-bottom:2rem}
+.hero-logo img{width:300px;height:auto}
+.hero-tagline{font-size:1.1rem;color:var(--white);font-weight:600;letter-spacing:.1em;text-transform:uppercase;margin-bottom:1rem}
+.hero-subtitle{font-size:1.15rem;font-weight:300;margin-bottom:3rem;opacity:.95;line-height:1.7}
+.hero-cta{display:inline-flex;align-items:center;gap:1rem;padding:1.2rem 3rem;background:var(--white);color:var(--black);text-decoration:none;font-size:1rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;transition:all .3s}
+.hero-cta:hover{background:var(--light-gray);transform:translateY(-3px);box-shadow:0 10px 30px rgba(255,255,255,.3)}
+
+/* ABOUT */
+.about{background:var(--white);padding:5rem 2rem}
+.about-container{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+.about-image img{width:100%;height:450px;object-fit:cover;box-shadow:0 20px 60px rgba(0,0,0,.15);filter:grayscale(100%)}
+.about-content h2{font-size:2.5rem;font-weight:800;color:var(--dark);margin-bottom:1.5rem}
+.about-content p{font-size:1.05rem;color:var(--gray);line-height:1.9;margin-bottom:1.5rem}
+.about-highlight{background:var(--black);padding:1.5rem;border-left:4px solid var(--white);margin-top:2rem}
+.about-highlight p{margin:0;font-style:italic;color:var(--white)}
+
+/* PROFESIONALES */
+.profesionales{background:var(--light-gray);padding:5rem 2rem}
+.section-header{text-align:center;margin-bottom:4rem}
+.section-label{font-size:.9rem;color:var(--black);font-weight:700;letter-spacing:.15em;text-transform:uppercase;margin-bottom:.5rem}
+.section-title{font-size:2.5rem;font-weight:800;color:var(--dark);margin-bottom:1rem}
+.section-subtitle{font-size:1.1rem;color:var(--gray);max-width:700px;margin:0 auto}
+.prof-grid{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(2,1fr);gap:3rem}
+.prof-card{background:var(--white);padding:2.5rem;text-align:center;box-shadow:0 10px 40px rgba(0,0,0,.08);transition:.3s;position:relative;overflow:hidden}
+.prof-card::before{content:'';position:absolute;top:0;left:0;width:100%;height:4px;background:var(--black)}
+.prof-card:hover{transform:translateY(-10px);box-shadow:0 20px 50px rgba(0,0,0,.12)}
+.prof-photo{width:180px;height:180px;border-radius:50%;margin:0 auto 1.5rem;border:5px solid var(--black);overflow:hidden}
+.prof-photo img{width:100%;height:100%;object-fit:cover;filter:grayscale(100%)}
+.prof-card h3{font-size:1.6rem;font-weight:700;color:var(--dark);margin-bottom:.5rem}
+.prof-title{font-size:1rem;color:var(--black);font-weight:600;letter-spacing:.05em;text-transform:uppercase;margin-bottom:1rem}
+.prof-specialty{font-size:1.1rem;color:var(--gray);font-weight:600;margin-bottom:1rem}
+.prof-card p{font-size:.95rem;color:var(--gray);line-height:1.7}
+
+/* AREAS */
+.areas{background:var(--white);padding:5rem 2rem}
+.areas-grid{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:2rem}
+.area-card{background:var(--light-gray);padding:2.5rem;text-align:center;transition:.3s;border-top:3px solid transparent}
+.area-card:hover{background:var(--white);border-top-color:var(--black);transform:translateY(-5px);box-shadow:0 15px 40px rgba(0,0,0,.1)}
+.area-icon{font-size:3rem;color:var(--black);margin-bottom:1.5rem}
+.area-card h3{font-size:1.3rem;font-weight:700;color:var(--dark);margin-bottom:1rem}
+.area-card p{font-size:.95rem;color:var(--gray);line-height:1.7}
+
+/* TESTIMONIOS */
+.testimonios{background:var(--light-gray);padding:5rem 2rem}
+.test-grid{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:2rem}
+.test-card{background:var(--white);padding:2rem;box-shadow:0 10px 30px rgba(0,0,0,.08);position:relative}
+.test-card::before{content:'"';position:absolute;top:-10px;left:20px;font-size:5rem;color:var(--black);opacity:.2;font-family:Georgia,serif}
+.test-header{display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem}
+.test-avatar{width:50px;height:50px;border-radius:50%;background:var(--black);display:flex;align-items:center;justify-content:center;color:var(--white);font-weight:700;font-size:1.2rem}
+.test-info h4{font-size:1rem;font-weight:700;color:var(--dark)}
+.test-stars{color:var(--black);font-size:.9rem}
+.test-card p{font-size:.95rem;color:var(--gray);line-height:1.7;font-style:italic}
+
+/* INSTAGRAM */
+.instagram{background:var(--black);padding:5rem 2rem;color:var(--white);position:relative;overflow:hidden}
+.instagram::before{content:'';position:absolute;top:0;left:0;width:100%;height:100%;background:url('https://images.unsplash.com/photo-1505664194779-8beaceb93744?w=1920&q=80') center/cover no-repeat;filter:grayscale(100%);z-index:0}
+.instagram::after{content:'';position:absolute;top:0;left:0;width:100%;height:100%;background:var(--black);mix-blend-mode:multiply;opacity:.9;z-index:1}
+.instagram .section-header{position:relative;z-index:2}
+.instagram .section-label{color:var(--white)}
+.instagram .section-title{color:var(--white)}
+.instagram .section-subtitle{color:rgba(255,255,255,.8)}
+.instagram-grid{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;position:relative;z-index:2}
+.instagram-post{background:transparent;overflow:hidden;border-radius:8px}
+.instagram-post iframe{width:100%;height:700px;border:none}
+
+/* FAQS */
+.faqs{background:var(--white);padding:5rem 2rem}
+.faqs-container{max-width:900px;margin:0 auto}
+.faq-item{background:var(--light-gray);margin-bottom:1.5rem;border-radius:0;overflow:hidden;border-left:4px solid var(--black);text-align:center}
+.faq-question{padding:1.5rem 2rem;cursor:pointer;font-size:1.1rem;font-weight:700;color:var(--dark);transition:.3s;display:block;width:100%;position:relative}
+.faq-question:hover{background:rgba(0,0,0,.05)}
+.faq-question i{color:var(--black);transition:.3s;position:absolute;right:2rem;top:50%;transform:translateY(-50%)}
+.faq-item.active .faq-question i{transform:translateY(-50%) rotate(180deg)}
+.faq-answer{max-height:0;overflow:hidden;transition:max-height .3s}
+.faq-answer p{padding:0 2rem 1.5rem;color:var(--gray);line-height:1.8;text-align:center}
+.faq-item.active .faq-answer{max-height:500px}
+
+/* MAPA */
+.mapa{background:var(--light-gray);padding:5rem 2rem}
+.mapa-container{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center}
+.mapa-info h2{font-size:2.5rem;font-weight:800;color:var(--dark);margin-bottom:1.5rem}
+.info-item{display:flex;align-items:flex-start;gap:1rem;margin-bottom:1.5rem}
+.info-icon{width:50px;height:50px;background:var(--black);display:flex;align-items:center;justify-content:center;color:var(--white);font-size:1.3rem;flex-shrink:0}
+.info-text h4{font-size:1.1rem;font-weight:700;color:var(--dark);margin-bottom:.3rem}
+.info-text p{font-size:.95rem;color:var(--gray);line-height:1.6}
+.mapa-embed iframe{width:100%;height:450px;border:none;box-shadow:0 10px 40px rgba(0,0,0,.15)}
+
+/* CTA */
+.cta{color:var(--white);text-align:center;padding:5rem 2rem;position:relative;overflow:hidden}
+.cta::before{content:'';position:absolute;top:0;left:0;width:100%;height:100%;background:url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=1920&q=80') center/cover no-repeat;filter:grayscale(100%);z-index:0}
+.cta::after{content:'';position:absolute;top:0;left:0;width:100%;height:100%;background:var(--black);mix-blend-mode:multiply;opacity:.85;z-index:1}
+.cta-content{max-width:800px;margin:0 auto;position:relative;z-index:2}
+.cta h2{font-size:2.5rem;font-weight:800;margin-bottom:1.5rem}
+.cta p{font-size:1.2rem;margin-bottom:2.5rem;opacity:.95}
+.cta-button{display:inline-flex;align-items:center;gap:1rem;padding:1.2rem 3rem;background:var(--white);color:var(--black);text-decoration:none;font-size:1rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;transition:all .3s}
+.cta-button:hover{background:var(--light-gray);transform:translateY(-3px);box-shadow:0 10px 30px rgba(255,255,255,.3)}
+
+/* FOOTER */
+.footer{background:var(--black);color:var(--white);padding:3rem 2rem 1.5rem}
+.footer-container{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:3rem;margin-bottom:2rem}
+.footer-brand img{width:180px;height:auto;margin-bottom:1rem}
+.footer-brand p{color:rgba(255,255,255,.7);line-height:1.7;font-size:.95rem}
+.footer-col h4{font-size:1.1rem;font-weight:700;margin-bottom:1rem;color:var(--white)}
+.footer-col ul{list-style:none}
+.footer-col a{color:rgba(255,255,255,.7);text-decoration:none;font-size:.9rem;line-height:2;transition:.3s}
+.footer-col a:hover{color:var(--gold)}
+.social-links{display:flex;gap:1rem;margin-top:1rem}
+.social-links a{width:40px;height:40px;background:var(--gray);display:flex;align-items:center;justify-content:center;color:var(--white);font-size:1.1rem;transition:.3s}
+.social-links a:hover{background:var(--white);color:var(--black)}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.1);padding-top:1.5rem;text-align:center;color:rgba(255,255,255,.5);font-size:.85rem}
+
+/* WHATSAPP BUTTON */
+.whatsapp-btn{position:fixed;bottom:30px;right:30px;width:65px;height:65px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:2rem;color:var(--white);box-shadow:0 8px 25px rgba(37,211,102,.4);z-index:999;transition:.3s;text-decoration:none}
+.whatsapp-btn:hover{transform:scale(1.1);box-shadow:0 10px 30px rgba(37,211,102,.6)}
+
+/* RESPONSIVE */
+@media (max-width:1024px){
+  .about-container{grid-template-columns:1fr}
+  .mapa-container{grid-template-columns:1fr}
+  .prof-grid{grid-template-columns:1fr;max-width:500px;margin:0 auto}
+  .areas-grid{grid-template-columns:repeat(2,1fr)}
+  .test-grid{grid-template-columns:1fr;max-width:600px;margin:0 auto}
+  .instagram-grid{grid-template-columns:1fr;max-width:600px;margin:0 auto}
+}
+@media (max-width:768px){
+  .header-container{padding:1rem 1.5rem;justify-content:center;position:relative}
+  .logo{margin:0 auto}
+  .logo img{height:40px}
+  .hamburger{position:absolute;right:1.5rem;top:50%;transform:translateY(-50%);display:flex}
+  .nav-links{display:none}
+  .hero{padding:100px 1.5rem 60px}
+  .hero-logo img{width:220px}
+  .hero-subtitle{font-size:1.1rem}
+  .section{padding:4rem 1.5rem}
+  .section-title{font-size:2rem}
+  .about-image img{height:350px}
+  .prof-grid{max-width:100%}
+  .areas-grid{grid-template-columns:1fr;max-width:500px;margin:0 auto}
+  .footer-container{grid-template-columns:1fr;text-align:center}
+  .social-links{justify-content:center}
+  .whatsapp-btn{width:60px;height:60px;font-size:1.8rem;bottom:20px;right:20px}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header" id="header">
+  <div class="header-container">
+    <a href="#inicio" class="logo">
+      <img src="./logo.png" alt="Martín Centurión & Asociados">
+    </a>
+    <ul class="nav-links">
+      <li><a href="#inicio">Inicio</a></li>
+      <li><a href="#nosotros">Nosotros</a></li>
+      <li><a href="#areas">Áreas</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul>
+    <div class="hamburger" id="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div>
+</header>
+
+<nav class="mobile-nav" id="mobileNav">
+  <ul>
+    <li><a href="#inicio">Inicio</a></li>
+    <li><a href="#nosotros">Nosotros</a></li>
+    <li><a href="#areas">Áreas</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="inicio">
+  <div class="hero-content">
+    <div class="hero-logo">
+      <img src="./logo.png" alt="Martín Centurión & Asociados">
+    </div>
+    <p class="hero-tagline">El respaldo legal que necesitas para proteger tus derechos</p>
+    <p class="hero-subtitle">Asesoría legal en Prov. Entre Ríos, Buenos Aires y C.A.B.A<br>Brindamos consultas online y presenciales</p>
+    <a href="https://wa.me/5493454162398?text=Hola,%20necesito%20asesoramiento%20legal" class="hero-cta" target="_blank">
+      CONSULTA GRATIS
+    </a>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about section" id="nosotros">
+  <div class="about-container">
+    <div class="about-image">
+      <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?w=800&q=80" alt="Estudio Jurídico">
+    </div>
+    <div class="about-content">
+      <h2>Un Estudio Diferente</h2>
+      <p>Contamos con un equipo de trabajo integrado por abogados, procuradores y personal administrativo, logrando de este modo un trabajo más profesional y veloz.</p>
+      <p>Siempre procurando la mayor efectividad y profesionalismo posible, trabajamos áreas específicas del derecho, con un profesional especializado por área.</p>
+      <p>Contamos también con tecnología para la gestión del estudio jurídico, permitiéndonos trabajar de manera más eficaz, organizada y rápida en los casos de nuestros clientes.</p>
+      <div class="about-highlight">
+        <p><strong>"Nos apasiona lo que hacemos y trabajamos para la construcción de la justicia y de la seguridad jurídica en la sociedad"</strong></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROFESIONALES -->
+<section class="profesionales section">
+  <div class="section-header">
+    <div class="section-label">Nuestro Equipo</div>
+    <h2 class="section-title">Profesionales Especializados</h2>
+    <p class="section-subtitle">Abogados comprometidos con la excelencia y la defensa de tus derechos</p>
+  </div>
+  <div class="prof-grid">
+    <div class="prof-card">
+      <div class="prof-photo">
+        <img src="./centurion.jpg" alt="Dr. Martín Centurión">
+      </div>
+      <h3>Dr. Martín Centurión</h3>
+      <p class="prof-title">Abogado</p>
+      <p class="prof-specialty">DERECHO LABORAL Y ACCIDENTES DE TRABAJO</p>
+      <p>Especialista en defensa de trabajadores, accidentes laborales y enfermedades profesionales. Amplia experiencia en reclamos ante ART, SRT y Justicia.</p>
+    </div>
+    <div class="prof-card">
+      <div class="prof-photo">
+        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&q=80" alt="Dr. Alejandro Tosto">
+      </div>
+      <h3>Dr. Alejandro Tosto</h3>
+      <p class="prof-title">Abogado</p>
+      <p class="prof-specialty">DERECHO CIVIL Y LABORAL</p>
+      <p>Especializado en derecho civil y laboral, brindando asesoramiento integral en contratos, sucesiones y conflictos laborales con enfoque personalizado.</p>
+    </div>
+  </div>
+</section>
+
+<!-- AREAS -->
+<section class="areas section" id="areas">
+  <div class="section-header">
+    <div class="section-label">Servicios</div>
+    <h2 class="section-title">Áreas de Práctica</h2>
+    <p class="section-subtitle">Cobertura legal completa en las principales ramas del derecho</p>
+  </div>
+  <div class="areas-grid">
+    <div class="area-card">
+      <i class="fas fa-hard-hat area-icon"></i>
+      <h3>Reclamos Laborales</h3>
+      <p>Despidos, trabajo en negro, negociaciones colectivas e indemnizaciones</p>
+    </div>
+    <div class="area-card">
+      <i class="fas fa-user-injured area-icon"></i>
+      <h3>Accidentes y Enfermedades Laborales</h3>
+      <p>Reclamos ante ART, SRT y Justicia por accidentes de trabajo y enfermedades profesionales</p>
+    </div>
+    <div class="area-card">
+      <i class="fas fa-car-crash area-icon"></i>
+      <h3>Accidentes de Tránsito</h3>
+      <p>Especialistas en casos de gravedad, obtención de indemnizaciones que corresponden a nuestros clientes</p>
+    </div>
+    <div class="area-card">
+      <i class="fas fa-hand-holding-usd area-icon"></i>
+      <h3>Jubilaciones y Pensiones</h3>
+      <p>Análisis de situación y ayuda para lograr beneficios previsionales de jubilación o retiro por invalidez</p>
+    </div>
+    <div class="area-card">
+      <i class="fas fa-heart area-icon"></i>
+      <h3>Derecho de Familia</h3>
+      <p>Protección de los más vulnerables. Alimentos y divorcios con enfoque empático</p>
+    </div>
+    <div class="area-card">
+      <i class="fas fa-gavel area-icon"></i>
+      <h3>Derecho Penal</h3>
+      <p>Asesorías en derecho penal, llevamos adelante tu denuncia o tu defensa penal</p>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIOS -->
+<section class="testimonios section">
+  <div class="section-header">
+    <div class="section-label">Testimonios</div>
+    <h2 class="section-title">Lo Que Dicen Nuestros Clientes</h2>
+    <p class="section-subtitle">La confianza de quienes ya confiaron en nosotros</p>
+  </div>
+  <div class="test-grid">
+    <div class="test-card">
+      <div class="test-header">
+        <div class="test-avatar">GP</div>
+        <div class="test-info">
+          <h4>Gabriela Paola Panozzo Zénere</h4>
+          <div class="test-stars">★★★★★</div>
+        </div>
+      </div>
+      <p>El estudio evacuó todas mis dudas en las acciones correspondientes.. se adecuó a las necesidades y plasmó un abanico de posibilidades para encarar la problemática. Desde luego que recomiendo 100% al Dr. Centurión.</p>
+    </div>
+    <div class="test-card">
+      <div class="test-header">
+        <div class="test-avatar">VL</div>
+        <div class="test-info">
+          <h4>Victoria Laner</h4>
+          <div class="test-stars">★★★★★</div>
+        </div>
+      </div>
+      <p>Excelente atención desde el momento 0, al igual que el acompañamiento en todo mi proceso.. obteniendo los resultados que esperaba. Recontra agradecida con el estudio. Recomendable al 100 %. De nuevo, gracias Martín!!</p>
+    </div>
+    <div class="test-card">
+      <div class="test-header">
+        <div class="test-avatar">EI</div>
+        <div class="test-info">
+          <h4>Estefanía Iglesias</h4>
+          <div class="test-stars">★★★★★</div>
+        </div>
+      </div>
+      <p>Buenos días! Quiero recomendar a este estudio que no solo es de calidad, a buen precio, profesional y brinda una excelente atención sino que es eficaz y eficiente. Mucha gracias !!</p>
+    </div>
+    <div class="test-card">
+      <div class="test-header">
+        <div class="test-avatar">LC</div>
+        <div class="test-info">
+          <h4>Luján Castrignano</h4>
+          <div class="test-stars">★★★★★</div>
+        </div>
+      </div>
+      <p>Sumamente agradecida y conforme con la atención y profesionalismo del Dr. Martín Centurión. Muy recomendable.</p>
+    </div>
+    <div class="test-card">
+      <div class="test-header">
+        <div class="test-avatar">SC</div>
+        <div class="test-info">
+          <h4>Sandra Castro</h4>
+          <div class="test-stars">★★★★★</div>
+        </div>
+      </div>
+      <p>El Dr. Martín Centurión ha realizado para mi trámites ante distintas instituciones, con eficacia y en tiempo prudente, recomiendo su labor, altamente calificable.</p>
+    </div>
+    <div class="test-card">
+      <div class="test-header">
+        <div class="test-avatar">EB</div>
+        <div class="test-info">
+          <h4>Elías Birreto</h4>
+          <div class="test-stars">★★★★★</div>
+        </div>
+      </div>
+      <p>Excelente trabajo en mi caso, se lo recomiendo.</p>
+    </div>
+  </div>
+</section>
+
+<!-- INSTAGRAM -->
+<section class="instagram section">
+  <div class="section-header">
+    <div class="section-label" style="color:var(--white)">Síguenos</div>
+    <h2 class="section-title">Últimas Publicaciones</h2>
+    <p class="section-subtitle">Mantente informado sobre tus derechos en Instagram</p>
+  </div>
+  <div class="instagram-grid">
+    <div class="instagram-post">
+      <iframe src="https://www.instagram.com/reel/DSDepVZiWct/embed" width="100%" height="700" frameborder="0" scrolling="no" allowtransparency="true"></iframe>
+    </div>
+    <div class="instagram-post">
+      <iframe src="https://www.instagram.com/reel/DRDS50_joto/embed" width="100%" height="700" frameborder="0" scrolling="no" allowtransparency="true"></iframe>
+    </div>
+    <div class="instagram-post">
+      <iframe src="https://www.instagram.com/reel/DQ7sbiEjRRZ/embed" width="100%" height="700" frameborder="0" scrolling="no" allowtransparency="true"></iframe>
+    </div>
+  </div>
+</section>
+
+<!-- FAQS -->
+<section class="faqs section">
+  <div class="section-header">
+    <div class="section-label">Preguntas Frecuentes</div>
+    <h2 class="section-title">Dudas Comunes</h2>
+    <p class="section-subtitle">Respuestas a las consultas más frecuentes</p>
+  </div>
+  <div class="faqs-container">
+    <div class="faq-item">
+      <div class="faq-question">
+        ¿Cuánto cuesta la consulta?
+        <i class="fas fa-chevron-down"></i>
+      </div>
+      <div class="faq-answer">
+        <p>La primera consulta es totalmente GRATUITA. Evaluamos tu caso sin compromiso y te explicamos las opciones legales disponibles.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question">
+        ¿Cuánto demora un reclamo laboral?
+        <i class="fas fa-chevron-down"></i>
+      </div>
+      <div class="faq-answer">
+        <p>Los tiempos varían según cada caso. Un reclamo por despido puede resolverse entre 6 meses y 2 años dependiendo de la complejidad y si se llega a un acuerdo o juicio.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question">
+        ¿Qué documentación necesito para una consulta?
+        <i class="fas fa-chevron-down"></i>
+      </div>
+      <div class="faq-answer">
+        <p>Para la primera consulta trae toda la documentación que tengas relacionada: recibos de sueldo, telegrama de despido, constancias médicas, contratos, etc. Si no tenés algo, igual consultá.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question">
+        ¿Trabajan con honorarios contingentes?
+        <i class="fas fa-chevron-down"></i>
+      </div>
+      <div class="faq-answer">
+        <p>Sí. En muchos casos trabajamos con honorarios a resultado, es decir, cobramos solo si ganamos el caso. Consultanos tu situación particular.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question">
+        ¿Atienden en toda la provincia?
+        <i class="fas fa-chevron-down"></i>
+      </div>
+      <div class="faq-answer">
+        <p>Sí, brindamos asesoramiento legal en toda la provincia de Entre Ríos, Buenos Aires y CABA. Además ofrecemos consultas online por WhatsApp para tu comodidad.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question">
+        ¿Qué hago si tuve un accidente laboral?
+        <i class="fas fa-chevron-down"></i>
+      </div>
+      <div class="faq-answer">
+        <p>Lo primero es denunciarlo a tu empleador y a la ART. Luego consultanos inmediatamente para proteger tus derechos. Es fundamental actuar rápido para no perder beneficios.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MAPA -->
+<section class="mapa section" id="contacto">
+  <div class="mapa-container">
+    <div class="mapa-info">
+      <h2>Visitanos en Concordia</h2>
+      <div class="info-item">
+        <div class="info-icon"><i class="fas fa-map-marker-alt"></i></div>
+        <div class="info-text">
+          <h4>Dirección</h4>
+          <p>Brown 968, entre Sargento Cabral y Ramírez<br>Concordia, Entre Ríos</p>
+        </div>
+      </div>
+      <div class="info-item">
+        <div class="info-icon"><i class="fas fa-clock"></i></div>
+        <div class="info-text">
+          <h4>Horarios de Atención</h4>
+          <p>Lunes a Viernes<br>8:00 a 12:00 hs | 17:00 a 19:00 hs</p>
+        </div>
+      </div>
+      <div class="info-item">
+        <div class="info-icon"><i class="fab fa-whatsapp"></i></div>
+        <div class="info-text">
+          <h4>WhatsApp</h4>
+          <p>3454162398<br>Consultas online y presenciales</p>
+        </div>
+      </div>
+      <div class="info-item">
+        <div class="info-icon"><i class="fab fa-instagram"></i></div>
+        <div class="info-text">
+          <h4>Instagram</h4>
+          <p>@martincenturionyasociados</p>
+        </div>
+      </div>
+    </div>
+    <div class="mapa-embed">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3401.234567890123!2d-58.0206789!3d-31.3917876!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95ade7f2d1234567%3A0x1234567890abcdef!2sBrown%20968%2C%20Concordia%2C%20Entre%20R%C3%ADos!5e0!3m2!1ses!2sar!4v1234567890123!5m2!1ses!2sar" allowfullscreen="" loading="lazy"></iframe>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta">
+  <div class="cta-content">
+    <h2>¿Necesitás Asesoramiento Legal?</h2>
+    <p>Agenda tu consulta gratuita hoy mismo y comencemos a trabajar en tu caso</p>
+    <a href="https://wa.me/5493454162398?text=Hola,%20necesito%20asesoramiento%20legal" class="cta-button" target="_blank">
+      CONSULTAR AHORA
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-container">
+    <div class="footer-brand">
+      <img src="./logo.png" alt="Martín Centurión & Asociados">
+      <p>Estudio jurídico especializado en defensa de tus derechos. Equipo profesional comprometido con resultados efectivos.</p>
+      <div class="social-links">
+        <a href="https://www.instagram.com/martincenturionyasociados" target="_blank"><i class="fab fa-instagram"></i></a>
+        <a href="https://wa.me/5493454162398" target="_blank"><i class="fab fa-whatsapp"></i></a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Áreas de Práctica</h4>
+      <ul>
+        <li><a href="#areas">Derecho Laboral</a></li>
+        <li><a href="#areas">Accidentes de Trabajo</a></li>
+        <li><a href="#areas">Accidentes de Tránsito</a></li>
+        <li><a href="#areas">Jubilaciones y Pensiones</a></li>
+        <li><a href="#areas">Derecho de Familia</a></li>
+        <li><a href="#areas">Derecho Penal</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contacto</h4>
+      <ul>
+        <li><a href="https://wa.me/5493454162398" target="_blank"><i class="fab fa-whatsapp"></i> 3454162398</a></li>
+        <li><a href="https://www.instagram.com/martincenturionyasociados" target="_blank"><i class="fab fa-instagram"></i> @martincenturionyasociados</a></li>
+        <li><i class="fas fa-map-marker-alt"></i> Brown 968, Concordia, ER</li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2025 Martín Centurión & Asociados. Todos los derechos reservados. | Diseñado por <strong>sageDev</strong></p>
+  </div>
+</footer>
+
+<!-- WHATSAPP BUTTON -->
+<a href="https://wa.me/5493454162398?text=Hola,%20necesito%20asesoramiento%20legal" class="whatsapp-btn" target="_blank">
+  <i class="fab fa-whatsapp"></i>
+</a>
+
+<script>
+document.addEventListener('DOMContentLoaded',function(){
+  const header=document.getElementById('header');
+  const hamburger=document.getElementById('hamburger');
+  const mobileNav=document.getElementById('mobileNav');
+  
+  window.addEventListener('scroll',()=>{
+    if(window.scrollY>50){
+      header.classList.add('scrolled');
+    }else{
+      header.classList.remove('scrolled');
+    }
+  });
+  
+  hamburger.addEventListener('click',()=>{
+    hamburger.classList.toggle('active');
+    mobileNav.classList.toggle('open');
+  });
+  
+  document.querySelectorAll('.mobile-nav a').forEach(link=>{
+    link.addEventListener('click',()=>{
+      hamburger.classList.remove('active');
+      mobileNav.classList.remove('open');
+    });
+  });
+  
+  // FAQs
+  document.querySelectorAll('.faq-question').forEach(question=>{
+    question.addEventListener('click',()=>{
+      const faqItem=question.parentElement;
+      faqItem.classList.toggle('active');
+    });
+  });
+});
+</script>
+</body>
+</html>
